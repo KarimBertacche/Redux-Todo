@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TODO } from './store/actions';
+import { TODO, COMPLETE } from './store/actions';
 
 import uuid from 'uuid';
 
@@ -34,7 +34,12 @@ class App extends React.Component {
         />
         {
           this.props.todos.map(todo => {
-            return <ToDoList key={todo.id} name={todo.todo}/>
+            return <ToDoList 
+                    key={uuid()} 
+                    name={todo.todo}
+                    id={todo.id}
+                    complete={todo.complete}
+                    onTaskComplete={this.props.onTaskComplete}/>
           }) 
         }
       </div>
@@ -50,7 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddTodo: (value) => dispatch({ type: TODO, newTodo: { todo: value, complete: false, id: uuid() }})
+    onAddTodo: (value) => dispatch({ type: TODO, payload: { todo: value, complete: false, id: uuid() }}),
+    onTaskComplete: (id) => dispatch({ type: COMPLETE, id: id })
   }
 }
 
