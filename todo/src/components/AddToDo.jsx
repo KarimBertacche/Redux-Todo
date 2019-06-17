@@ -1,13 +1,17 @@
 import React from 'react';
 
-export default function AddToDo() {
+const AddToDo = props => {
     return(
         <div>
             <input 
                 type="text"
-                onChange=''
+                value={props.value}
+                onChange={props.inputHandler}
             />
-            <button onClick=''>Add Todo</button>
+            <button onClick={() => props.onAddTodo(props.value)}>Add Todo</button>
         </div>
     );
-}
+
+} 
+
+export default AddToDo;
