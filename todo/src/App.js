@@ -11,13 +11,17 @@ import ToDoList from './components/ToDoList';
 
 class App extends React.Component {
   state = {
-      input: '',
+    input: '',
   }
 
   inputHandler = event => {
-      this.setState({ input: event.target.value })
+    this.setState({ input: event.target.value })
   }
 
+  addNewTodo = () => {
+    this.props.onAddTodo(this.state.input);
+    this.setState({ input: '' });
+  } 
 
 
   render() {
@@ -26,7 +30,7 @@ class App extends React.Component {
         <AddToDo
           value={this.state.input}
           inputHandler={this.inputHandler}
-          onAddTodo={this.props.onAddTodo}
+          addNewTodo={this.addNewTodo}
         />
         {
           this.props.todos.map(todo => {

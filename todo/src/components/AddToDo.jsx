@@ -8,7 +8,7 @@ const AddToDo = props => {
                 value={props.value}
                 onChange={props.inputHandler}
             />
-            <button onClick={() => props.onAddTodo(props.value)}>Add Todo</button>
+            <button onClick={props.addNewTodo}>Add Todo</button>
         </div>
     );
 
