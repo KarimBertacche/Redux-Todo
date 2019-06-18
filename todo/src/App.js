@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 import NavBar from './components/NavBar';
 import TodoContainer from './components/TodoContainer';
@@ -29,7 +30,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState(prevState=> ({ todoList: prevState.todoList.concat(this.props.todos)}));
+    this.setState(prevState=> ({ todoList: prevState.todoList.concat({todos: {...this.props.todos}, id: uuid()})}));
   }
 
   inputHandler = event => {
@@ -66,7 +67,7 @@ class App extends React.Component {
             {
               this.state.todoList.map(list => {
                 return (
-                  <section>
+                  <section key={uuid()}>
                     <TodoContainer 
                       nameTodo={this.state.nameTodo}
                       nameTodoHandler={this.nameTodoHandler}

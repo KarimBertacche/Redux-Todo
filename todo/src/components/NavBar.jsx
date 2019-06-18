@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import uuid from 'uuid';
 
 import { NavLink } from 'react-router-dom';
 
@@ -45,7 +46,7 @@ export default function NavBar(props) {
                 <h2>TODO or NOT TODO</h2>
                 {
                     props.todoList.map(todoList => {
-                        return <li>{props.listName}</li>
+                        return <li key={uuid()}>{props.listName}</li>
                     })
                 }
             </nav>
