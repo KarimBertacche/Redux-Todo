@@ -44,9 +44,9 @@ const AddToDo = props => {
             <input 
                 type="text"
                 value={props.value}
-                onChange={props.inputHandler}
+                onChange={(event) => props.inputHandler(event, props.listID)}
             />
-            <button onClick={() => props.addNewTodo(props.addTodo)}>Add</button>
+            <button onClick={() => props.addNewTodo(props.addTodo, props.listID)}>Add</button>
         </StylesAddToDo>
     );
 
