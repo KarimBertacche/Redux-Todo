@@ -18,6 +18,14 @@ const StylesApp = styled.div`
   box-shadow: .5px .5px 10px #000;
   overflow: hidden;
 
+  .title-input {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    outline: none;
+    border: none;
+  }
+
   section {
     max-height: 70vh;
     overflow: scroll;
@@ -33,7 +41,7 @@ const StylesApp = styled.div`
     font-weight: bold;
 
     span {
-      color: red;
+      font-size: 1.1rem;
     }
   }
 `;
@@ -41,29 +49,40 @@ const StylesApp = styled.div`
 class App extends React.Component {
   state = {
     input: '',
+    nameTodo: '',
   }
 
   inputHandler = event => {
     this.setState({ input: event.target.value })
   }
 
-  addNewTodo = () => {
+  addNewTodoHandler = () => {
     if( this.state.input !== '') {
       this.props.onAddTodo(this.state.input.toUpperCase());
       this.setState({ input: '' });
     }
   } 
 
+  nameTodoHandler = (event) => {
+    this.setState({ nameTodo: event.target.value.toUpperCase() })
+  }
+
   render() {
     return (
       <StylesApp >
-        <h2>TODO LIST </h2>
-        <p>Number of Todos: {this.props.numOfTodos}</p>
-        <p>Number of Todos completed: <span>{this.props.completedTodos}</span></p>
+        <input 
+          className='title-input'
+          type='text'
+          value={this.state.nameTodo}
+          onChange={this.nameTodoHandler}
+          placeholder='Add list name here'
+        />
+        <p>Number of Todos: <span>{this.props.numOfTodos}</span></p>
+        <p>Todos completed: <span>{this.props.completedTodos}</span></p>
         <AddToDo
           value={this.state.input}
           inputHandler={this.inputHandler}
-          addNewTodo={this.addNewTodo}
+          addNewTodo={this.addNewTodoHandler}
         />
         <section>
 
