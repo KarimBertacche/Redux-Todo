@@ -53,7 +53,7 @@ function TodoContainer(props) {
             className='title-input'
             type='text'
             value={props.nameTodo}
-            onChange={props.nameTodoHandler}
+            onChange={(event) => props.nameTodoHandler(event)}
             placeholder='Add list name here'
           />
           <p>Number of Todos: <span>{props.numOfTodos}</span></p>
@@ -62,6 +62,7 @@ function TodoContainer(props) {
             value={props.input}
             inputHandler={props.inputHandler}
             addNewTodo={props.addNewTodoHandler}
+            addTodo={props.onAddTodo}
           />
           <section>
 
