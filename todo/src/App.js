@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
 
 import NavBar from './components/NavBar';
 import TodoContainer from './components/TodoContainer';
@@ -26,49 +25,49 @@ class App extends React.Component {
   state = {
     input: '',
     nameTodo: '',
-    todoList: [],
   }
 
-  componentDidMount() {
-    this.setState(prevState=> ({ todoList: prevState.todoList.concat({todos: {...this.props.todos}, id: uuid()})}));
+  inputHandler = (event, id)=> {
+    this.props.todoList.map((list) => {
+      if(list.id === id){
+        this.setState({ input: event.target.value })
+      }
+    })
   }
 
-  inputHandler = event => {
-    // this.state.todoList.map((list, index) => {
-    //   if(list[index] === )
-    // })
-    this.setState({ input: event.target.value })
-  }
-
-  addNewTodoHandler = (onAddTodo) => {
-    if( this.state.input !== '') {
-      onAddTodo(this.state.input.toUpperCase());
-      this.setState({ input: '' });
-    }
+  addNewTodoHandler = (onAddTodo, id) => {
+    this.props.todoList.map(list => {
+      if(this.state.input !== '' && list.id === id) {
+        onAddTodo(this.state.input.toUpperCase(), id);
+        this.setState({ input: '' });
+      }
+      return null;
+    })
   } 
 
-  nameTodoHandler = (event) => {
-    this.setState({ nameTodo: event.target.value.toUpperCase() })
-  }
-
-  createNewListHandler = (newTodo) => {
-    this.setState(prevState => ({ todoList: prevState.todoList.concat(newTodo) }));
+  nameTodoHandler = (event, id) => {
+    this.props.todoList.map(list => {
+      if(list.id === id) {
+        return this.setState({ nameTodo: event.target.value.toUpperCase() })
+      }
+      return null;
+    }) 
   }
 
   render() {
     return (
       <StylesApp>
         <NavBar 
-          todoList={this.state.todoList}
-          listName={this.state.nameTodo}
+          todoList={this.props.todoList}
         />
         <main>
           
             {
-              this.state.todoList.map(list => {
+              this.props.todoList.map(list => {
                 return (
-                  <section key={uuid()}>
+                  <section>
                     <TodoContainer 
+                      listID={list.id}
                       nameTodo={this.state.nameTodo}
                       nameTodoHandler={this.nameTodoHandler}
                       input={this.state.input}
@@ -93,6 +92,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     todos: state.todos,
+    todoList: state.todoList,
   }
 }
 

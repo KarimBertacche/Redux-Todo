@@ -25,3 +25,10 @@ export const deleteTask = (id) => {
         id: id
     }
 }
+
+export const addListTodo = () => {
+    return {
+        type: types.ADD_LIST,
+        id: uuid()
+    }
+}
