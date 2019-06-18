@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+import { addListTodo } from '../store/actions/actionsCreator';
+
 const StylesTodoCreator = styled.div`
     display: flex;
     justify-content: center;
@@ -20,10 +23,24 @@ const StylesTodoCreator = styled.div`
     }
 `;
 
-export default function TodoCreator(props) {
+function TodoCreator(props) {
     return (
-        <StylesTodoCreator onClick={props.createNewList}>
+        <StylesTodoCreator onClick={props.onAddListTodo}>
             <p>+</p>
         </StylesTodoCreator>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        todoList: state.todoList
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddListTodo: () => dispatch(addListTodo()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoCreator);
