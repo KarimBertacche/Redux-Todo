@@ -53,7 +53,7 @@ function TodoContainer(props) {
             className='title-input'
             type='text'
             value={props.nameTodo}
-            onChange={(event) => props.nameTodoHandler(event)}
+            onChange={(event) => props.nameTodoHandler(event, props.listID)}
             placeholder='Add list name here'
           />
           <p>Number of Todos: <span>{props.numOfTodos}</span></p>
@@ -63,6 +63,7 @@ function TodoContainer(props) {
             inputHandler={props.inputHandler}
             addNewTodo={props.addNewTodoHandler}
             addTodo={props.onAddTodo}
+            listID={props.listID}
           />
           <section>
 
@@ -85,6 +86,7 @@ function TodoContainer(props) {
 const mapStateToProps = (state) => {
     return {
       todos: state.todos,
+      todoList: state.todoList,
       numOfTodos: state.todos.length,
       completedTodos: state.todos.filter(todo => todo.complete).length
     }
@@ -92,7 +94,7 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = dispatch => {
     return {
-        onAddTodo: (value) => dispatch(addTodo(value)),
+        onAddTodo: (value, id) => dispatch(addTodo(value, id)),
         onTaskComplete: (id) => dispatch(taskCompleted(id)),
         onDeleteTask: (id) => dispatch(deleteTask(id))
     }
