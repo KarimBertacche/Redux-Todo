@@ -1,4 +1,4 @@
-import { TODO, COMPLETE, DELETE_TODO } from './actions';
+import { TODO, COMPLETE, DELETE_TODO } from '../actions/actions';
 
 const defaultState = {
     todos: [],
@@ -11,10 +11,9 @@ const reducer = (state = defaultState, action) => {
         case COMPLETE: 
             const newTodosArr = state.todos.map(todo => {
                 if(todo.id === action.id) {
-                  todo.complete = true;
-                  return todo
+                  return {...todo, complete: true};
                 }
-                return todo
+                return todo;
             });
             return {...state, todos: newTodosArr};
         case DELETE_TODO:

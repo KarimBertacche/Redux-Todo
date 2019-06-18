@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TODO, COMPLETE, DELETE_TODO } from './store/actions';
+import { addTodo, taskCompleted, deleteTask } from './store/actions/actionsCreator';
 
 import styled from 'styled-components';
 import uuid from 'uuid';
@@ -28,6 +28,14 @@ const StylesApp = styled.div`
       width: 0;
     }
   }
+
+  p {
+    font-weight: bold;
+
+    span {
+      color: red;
+    }
+  }
 `;
 
 class App extends React.Component {
@@ -50,6 +58,8 @@ class App extends React.Component {
     return (
       <StylesApp >
         <h2>TODO LIST </h2>
+        <p>Number of Todos: {this.props.numOfTodos}</p>
+        <p>Number of Todos completed: <span>{this.props.completedTodos}</span></p>
         <AddToDo
           value={this.state.input}
           inputHandler={this.inputHandler}
@@ -77,14 +87,16 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     todos: state.todos,
+    numOfTodos: state.todos.length,
+    completedTodos: state.todos.filter(todo => todo.complete).length
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddTodo: (value) => dispatch({ type: TODO, payload: { todo: value, complete: false, id: uuid() }}),
-    onTaskComplete: (id) => dispatch({ type: COMPLETE, id: id }),
-    onDeleteTask: (id) => dispatch({ type: DELETE_TODO, id: id })
+    onAddTodo: (value) => dispatch(addTodo(value)),
+    onTaskComplete: (id) => dispatch(taskCompleted(id)),
+    onDeleteTask: (id) => dispatch(deleteTask(id))
   }
 }
 

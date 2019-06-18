@@ -17,7 +17,7 @@ const StylesToDoList = styled.ul`
         cursor: pointer;
 
         &:hover {
-            border: 3px solid #f00;  
+            border: 3px double #000;  
         }
     }
 
