@@ -59,6 +59,7 @@ class App extends React.Component {
       <StylesApp>
         <NavBar 
           todoList={this.state.todoList}
+          listName={this.state.nameTodo}
         />
         <main>
           
